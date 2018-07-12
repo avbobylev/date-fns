@@ -13,7 +13,7 @@ type Options = {
   locale?: Locale,
   includeSeconds?: boolean,
   addSuffix?: boolean,
-  unit?: 'second' | 'minute' | 'hour' | 'day' | 'month' | 'year',
+  unit?: 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year',
   roundingMethod?: 'floor' | 'ceil' | 'round'
 }
 

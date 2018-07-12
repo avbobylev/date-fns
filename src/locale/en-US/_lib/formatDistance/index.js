@@ -41,6 +41,11 @@ var formatDistanceLocale = {
     other: 'about {{count}} months'
   },
 
+  xWeeks: {
+    one: '1 week',
+    other: '{{count}} weeks'
+  },
+
   xMonths: {
     one: '1 month',
     other: '{{count}} months'

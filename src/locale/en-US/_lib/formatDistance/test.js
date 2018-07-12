@@ -127,6 +127,20 @@ describe('en-US locale > formatDistance', function () {
     })
   })
 
+  describe('xWeeks', function () {
+    context('when the count equals 1', function () {
+      it('returns a proper string', function () {
+        assert(formatDistance('xWeeks', 1) === '1 week')
+      })
+    })
+
+    context('when the count is more than 1', function () {
+      it('returns a proper string', function () {
+        assert(formatDistance('xWeeks', 2) === '2 weeks')
+      })
+    })
+  })
+
   describe('xMonths', function () {
     context('when the count equals 1', function () {
       it('returns a proper string', function () {

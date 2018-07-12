@@ -6,6 +6,7 @@ import cloneObject from '../_lib/cloneObject/index.js'
 import defaultLocale from '../locale/en-US/index.js'
 
 var MINUTES_IN_DAY = 1440
+var MINUTES_IN_WEEK = 10080
 var MINUTES_IN_MONTH = 43200
 var MINUTES_IN_YEAR = 525600
 
@@ -25,6 +26,7 @@ var MINUTES_IN_YEAR = 525600
  * | 1 ... 59 mins          | [1..59] minutes     |
  * | 1 ... 23 hrs           | [1..23] hours       |
  * | 1 ... 29 days          | [1..29] days        |
+ * | 1 ... 4 weeks          | [1..4] weeks        |
  * | 1 ... 11 months        | [1..11] months      |
  * | 1 ... N years          | [1..N]  years       |
  *
@@ -33,14 +35,14 @@ var MINUTES_IN_YEAR = 525600
  * @param {Options} [options] - the object with options. See [Options]{@link https://date-fns.org/docs/Options}
  * @param {0|1|2} [options.additionalDigits=2] - passed to `toDate`. See [toDate]{@link https://date-fns.org/docs/toDate}
  * @param {Boolean} [options.addSuffix=false] - result indicates if the second date is earlier or later than the first
- * @param {'second'|'minute'|'hour'|'day'|'month'|'year'} [options.unit] - if specified, will force a unit
+ * @param {'second'|'minute'|'hour'|'day'|'week'|'month'|'year'} [options.unit] - if specified, will force a unit
  * @param {'floor'|'ceil'|'round'} [options.roundingMethod='round'] - which way to round partial units
  * @param {Locale} [options.locale=defaultLocale] - the locale object. See [Locale]{@link https://date-fns.org/docs/Locale}
  * @returns {String} the distance in words
  * @throws {TypeError} 2 arguments required
  * @throws {RangeError} `options.additionalDigits` must be 0, 1 or 2
  * @throws {RangeError} `options.roundingMethod` must be 'floor', 'ceil' or 'round'
- * @throws {RangeError} `options.unit` must be 'second', 'minute', 'hour', 'day', 'month' or 'year'
+ * @throws {RangeError} `options.unit` must be 'second', 'minute', 'hour', 'day', 'week', 'month' or 'year'
  * @throws {RangeError} `options.locale` must contain `formatDistance` property
  *
  * @example
@@ -186,6 +188,11 @@ export default function formatDistanceStrict (dirtyDate, dirtyBaseDate, dirtyOpt
     var days = roundingMethodFn(minutes / MINUTES_IN_DAY)
     return locale.formatDistance('xDays', days, localizeOptions)
 
+  // 1 up to 4 weeks
+  } else if (unit === 'week') {
+    var weeks = roundingMethodFn(minutes / MINUTES_IN_WEEK)
+    return locale.formatDistance('xWeeks', weeks)
+
   // 1 up to 12 months
   } else if (unit === 'month') {
     var months = roundingMethodFn(minutes / MINUTES_IN_MONTH)
@@ -197,5 +204,5 @@ export default function formatDistanceStrict (dirtyDate, dirtyBaseDate, dirtyOpt
     return locale.formatDistance('xYears', years, localizeOptions)
   }
 
-  throw new RangeError("unit must be 'second', 'minute', 'hour', 'day', 'month' or 'year'")
+  throw new RangeError("unit must be 'second', 'minute', 'hour', 'day', 'week', 'month' or 'year'")
 }

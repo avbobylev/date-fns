@@ -79,6 +79,26 @@ describe('formatDistanceStrict', function () {
     })
   })
 
+  describe('weeks', function () {
+    it('1 week', function () {
+      var result = formatDistanceStrict(
+        new Date(1986, 4, 4, 10, 32, 0),
+        new Date(1986, 4, 11, 10, 32, 0),
+        {unit: 'week'}
+      )
+      assert(result === '1 week')
+    })
+
+    it('n weeks', function () {
+      var result = formatDistanceStrict(
+        new Date(1986, 3, 4, 10, 32, 0),
+        new Date(1986, 3, 25, 10, 32, 0),
+        {unit: 'week'}
+      )
+      assert(result === '3 weeks')
+    })
+  })
+
   describe('months', function () {
     it('1 month', function () {
       var result = formatDistanceStrict(
@@ -142,6 +162,15 @@ describe('formatDistanceStrict', function () {
           {unit: 'second'}
         )
         assert(result === '120 seconds')
+      })
+
+      it('3 weeks', function () {
+        var result = formatDistanceStrict(
+          new Date(1986, 3, 4, 10, 32, 0),
+          new Date(1986, 3, 25, 10, 32, 0),
+          {unit: 'week'}
+        )
+        assert(result === '3 weeks')
       })
     })
 
@@ -431,8 +460,8 @@ describe('formatDistanceStrict', function () {
         var block = formatDistanceStrict.bind(
           null,
           new Date(1986, 3, 4, 10, 32, 0),
-          // $ExpectedMistake
           new Date(1986, 3, 4, 10, 37, 0),
+          // $ExpectedMistake
           {unit: 'minute', locale: customLocale}
         )
         assert.throws(block, RangeError)
